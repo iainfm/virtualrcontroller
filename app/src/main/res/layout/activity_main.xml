@@ -23,9 +23,6 @@
     <include
         layout="@layout/linear_layout"
         android:visibility="gone" />
-    <include
-        layout="@layout/controls_layout"
-        android:layout_height="485dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -35,5 +32,11 @@
         android:layout_margin="@dimen/fab_margin"
         android:visibility="gone"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <include
+        layout="@layout/controls_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"/>
 
 </android.support.design.widget.CoordinatorLayout>

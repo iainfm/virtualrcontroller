@@ -64,23 +64,155 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         SeekBar seekBar1 = (SeekBar) findViewById(R.id.seekBar1);
+        SeekBar seekBar2 = (SeekBar) findViewById(R.id.seekBar2);
+        SeekBar seekBar3 = (SeekBar) findViewById(R.id.seekBar3);
+        SeekBar seekBar4 = (SeekBar) findViewById(R.id.seekBar4);
+        SeekBar seekBar5 = (SeekBar) findViewById(R.id.seekBar5);
+        SeekBar seekBar6 = (SeekBar) findViewById(R.id.seekBar6);
+        SeekBar seekBar7 = (SeekBar) findViewById(R.id.seekBar7);
+        SeekBar seekBar8 = (SeekBar) findViewById(R.id.seekBar8);
+
         seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 Log.d("SB1", Integer.toString(i));
                 if (mTcpClient != null) {
-                    mTcpClient.sendMessage("A," + Integer.toString(i));
+                    mTcpClient.sendMessage("Temperature," + Integer.toString(i));
                 }
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
 
+        seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                Log.d("SB1", Integer.toString(i));
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage("Tint," + Integer.toString(i));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        seekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                Log.d("SB1", Integer.toString(i));
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage("Exposure," + Integer.toString(i));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        seekBar4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                Log.d("SB1", Integer.toString(i));
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage("Contrast," + Integer.toString(i));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        seekBar5.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                Log.d("SB1", Integer.toString(i));
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage("Highlights," + Integer.toString(i));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        seekBar6.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                Log.d("SB1", Integer.toString(i));
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage("Shadows," + Integer.toString(i));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        seekBar7.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                Log.d("SB1", Integer.toString(i));
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage("Whites," + Integer.toString(i));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        seekBar8.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                Log.d("SB1", Integer.toString(i));
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage("Blacks," + Integer.toString(i));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
 
