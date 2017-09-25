@@ -2,6 +2,7 @@ package scot.mclarentech.virtualrcontroller;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +15,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
+
+// import java.util.function.ToDoubleBiFunction;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> arrayList;
     private ClientListAdapter mAdapter;
     private TcpClient mTcpClient;
+    private ServerSocket serverSocket;
+    public static final int SERVERPORT = 55556;
+    Handler updateConversationHandler;
+    Thread serverThread = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_main);
+
+        updateConversationHandler = new Handler();
+        this.serverThread = new Thread(new ServerThread());
+        this.serverThread.start();
 
         arrayList = new ArrayList<String>();
 
@@ -240,6 +257,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -306,6 +333,60 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+class ServerThread implements Runnable {
+    @Override
+    public void run() {
+        Socket socket = null;
+        try {
+            serverSocket = new ServerSocket(SERVERPORT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                socket = serverSocket.accept();
+                CommunicationThread commThread = new CommunicationThread(socket);
+                new Thread(commThread).start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
 
+class CommunicationThread implements Runnable {
+    private Socket clientSocket;
+    private BufferedReader input;
+    public CommunicationThread(Socket clientSocket) {
+        this.clientSocket = clientSocket;
+        try {
+            this.input = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void run() {
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                String read = input.readLine();
+                // TODO
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+class updateUIThread implements Runnable {
+    private String msg;
+    public updateUIThread(String str) {
+        this.msg = str;
+    }
+    @Override
+    public void run() {
+        // update something here with msg
+        Log.e("MSG", msg);
+    }
+}
 
 }
