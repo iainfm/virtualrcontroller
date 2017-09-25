@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ClientListAdapter mAdapter;
     private TcpClient mTcpClient;
     private ServerSocket serverSocket;
-    public static final int SERVERPORT = 55556;
+    public static final int serverPort = 55556;
     Handler updateConversationHandler;
     Thread serverThread = null;
 
@@ -338,7 +339,7 @@ class ServerThread implements Runnable {
     public void run() {
         Socket socket = null;
         try {
-            serverSocket = new ServerSocket(SERVERPORT);
+            serverSocket = new ServerSocket(serverPort);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -369,7 +370,7 @@ class CommunicationThread implements Runnable {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 String read = input.readLine();
-                // TODO
+                updateConversationHandler.post(new updateUIThread(read));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -385,6 +386,8 @@ class updateUIThread implements Runnable {
     @Override
     public void run() {
         // update something here with msg
+        Toast.makeText(MainActivity.this,msg,Toast.LENGTH_SHORT).show();
+
         Log.e("MSG", msg);
     }
 }
