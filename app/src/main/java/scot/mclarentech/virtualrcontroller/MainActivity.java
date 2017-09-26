@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,6 +23,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 // import java.util.function.ToDoubleBiFunction;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     Handler updateConversationHandler;
     Thread serverThread = null;
 
+    public SeekBar seekBar1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -380,15 +382,70 @@ class CommunicationThread implements Runnable {
 
 class updateUIThread implements Runnable {
     private String msg;
+    private String[] msgGet;
+    private String[] paramValue;
+    private int i;
     public updateUIThread(String str) {
         this.msg = str;
     }
     @Override
     public void run() {
-        // update something here with msg
-        Toast.makeText(MainActivity.this,msg,Toast.LENGTH_SHORT).show();
+        SeekBar seekBar1 = (SeekBar) findViewById(R.id.seekBar1);
+        SeekBar seekBar2 = (SeekBar) findViewById(R.id.seekBar2);
+        SeekBar seekBar3 = (SeekBar) findViewById(R.id.seekBar3);
+        SeekBar seekBar4 = (SeekBar) findViewById(R.id.seekBar4);
+        SeekBar seekBar5 = (SeekBar) findViewById(R.id.seekBar5);
+        SeekBar seekBar6 = (SeekBar) findViewById(R.id.seekBar6);
+        SeekBar seekBar7 = (SeekBar) findViewById(R.id.seekBar7);
+        SeekBar seekBar8 = (SeekBar) findViewById(R.id.seekBar8);
 
-        Log.e("MSG", msg);
+        if ((msg.length() > 5) && (msg.substring(0,5).equals("GET /"))) {
+            msg = msg.substring(5);
+            msg = msg.substring(0, msg.indexOf(" HTTP/1.1"));
+            // msg = msg.substring(0,msg);
+            String[] msgGet = msg.split("&");
+            for (i=0; i < msgGet.length; i++) {
+                String[] paramValue = msgGet[i].split("=");
+                // Log.e("PV", paramValue[0] + " is " + paramValue[1]);
+                // Toast.makeText(MainActivity.this,paramValue[0] + " is " + paramValue[1], Toast.LENGTH_SHORT).show();
+                if (paramValue[0].equals("Temperature")){
+                    seekBar1.setProgress(Integer.parseInt(paramValue[1]));
+                    seekBar1.refreshDrawableState();
+                }
+                else if (paramValue[0].equals("Tint")) {
+                    seekBar2.setProgress(Integer.parseInt(paramValue[1]));
+                    seekBar2.refreshDrawableState();
+                }
+                else if (paramValue[0].equals("Exposure")) {
+                    seekBar3.setProgress(Integer.parseInt(paramValue[1]));
+                    seekBar3.refreshDrawableState();
+                }
+                else if (paramValue[0].equals("Contrast")) {
+                    seekBar4.setProgress(Integer.parseInt(paramValue[1]));
+                    seekBar4.refreshDrawableState();
+                }
+                else if (paramValue[0].equals("Highlights")) {
+                    seekBar5.setProgress(Integer.parseInt(paramValue[1]));
+                    seekBar5.refreshDrawableState();
+                }
+                else if (paramValue[0].equals("Shadows")) {
+                    seekBar6.setProgress(Integer.parseInt(paramValue[1]));
+                    seekBar6.refreshDrawableState();
+                }
+                else if (paramValue[0].equals("Whites")) {
+                    seekBar7.setProgress(Integer.parseInt(paramValue[1]));
+                    seekBar7.refreshDrawableState();
+                }
+                else if (paramValue[0].equals("Blacks")) {
+                    seekBar8.setProgress(Integer.parseInt(paramValue[1]));
+                    seekBar8.refreshDrawableState();
+                }
+            }
+
+        }
+
+
+        // Log.e("MSG", msg);
     }
 }
 
