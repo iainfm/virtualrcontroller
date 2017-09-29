@@ -185,7 +185,7 @@
         app:layout_constraintTop_toBottomOf="@+id/seekBar7" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/imageButtonUndo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_menu_revert"
@@ -200,7 +200,7 @@
         app:layout_constraintVertical_bias="0.4" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/imageButtonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_media_previous"
@@ -213,7 +213,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/seekBar8" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/imageButtonNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_media_next"

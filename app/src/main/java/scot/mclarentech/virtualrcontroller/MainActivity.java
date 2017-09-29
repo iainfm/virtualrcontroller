@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 
@@ -91,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
         SeekBar seekBar6 = (SeekBar) findViewById(R.id.seekBar6);
         SeekBar seekBar7 = (SeekBar) findViewById(R.id.seekBar7);
         SeekBar seekBar8 = (SeekBar) findViewById(R.id.seekBar8);
+
+        ImageButton imageButtonUndo = (ImageButton) findViewById(R.id.imageButtonUndo);
+        ImageButton imageButtonBack = (ImageButton) findViewById(R.id.imageButtonBack);
+        ImageButton imageButtonNext = (ImageButton) findViewById(R.id.imageButtonNext);
 
         seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -233,6 +238,39 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        imageButtonUndo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                  //      .setAction("Action", null).show();
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage("Undo,");
+                }
+            }
+        });
+
+        imageButtonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //      .setAction("Action", null).show();
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage("Back,");
+                }
+            }
+        });
+
+        imageButtonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //      .setAction("Action", null).show();
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage("Next,");
+                }
             }
         });
 
